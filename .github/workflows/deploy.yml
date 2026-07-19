@@ -1,0 +1,34 @@
+name: ARC Autonomous Fleet Engine
+
+on:
+  workflow_dispatch:
+  schedule:
+    # This runs at the top of every single hour, 24/7
+    - cron: '0 * * * *'
+
+jobs:
+  run-matrix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install System Libraries (For MoviePy)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Install Python Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Execute Fleet Orchestration
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: python worker.py
+        
