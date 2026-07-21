@@ -24,7 +24,8 @@ export default function ArcCommandCenter() {
     setStatus('[*] Uploading Base Asset to ARC Vault...');
     
     // Upload Video to Storage
-    const fileName = `${Date.now()}-${file.name}`;
+    const fileName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+    
     const { data: uploadData, error: uploadError } = await supabase.storage
       .from('arc_assets')
       .upload(fileName, file);
