@@ -15,7 +15,7 @@ export default function ArcCommandCenter() {
   const [status, setStatus] = useState('System Offline. Awaiting input.');
 
   // Function 1: Schedule the Video
-  const handleDeploy = async () => {
+    const handleDeploy = async () => {
     if (!file || !scheduleTime) {
       setStatus('[-] Error: Base video and schedule time are strictly required.');
       return;
@@ -23,15 +23,17 @@ export default function ArcCommandCenter() {
     
     setStatus('[*] Uploading Base Asset to ARC Vault...');
     
-    // Upload Video to Storage
-    const fileName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+    // Clean filename and upload
+    const cleanName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+    const fileName = `${Date.now()}-${cleanName}`;
     
     const { data: uploadData, error: uploadError } = await supabase.storage
       .from('arc_assets')
       .upload(fileName, file);
 
     if (uploadError) {
-      setStatus(`[-] Upload failed: ${uploadError.message}`);
+      console.error("SUPABASE UPLOAD ERROR:", uploadError);
+      setStatus(`[-] FAIL: ${uploadError.message} | Code: ${uploadError.statusCode || 'N/A'}`);
       return;
     }
 
@@ -55,7 +57,7 @@ export default function ArcCommandCenter() {
     if (dbError) {
       setStatus(`[-] Database Error: ${dbError.message}`);
     } else {
-      setStatus('[+] SUCCESS: Fleet deployment scheduled. You may power down your device.');
+      setStatus('[+] SUCCESS: Fleet deployment scheduled.');
     }
   };
 
