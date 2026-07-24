@@ -51,14 +51,14 @@ def main():
         print("[*] No deployments scheduled for this hour. Standing by.")
         return
 
-    # Fetch IG Cookies
-response = supabase.table("scheduled_posts").select("*").limit(1).execute()
-
+        # Fetch IG Cookies
+    config_res = supabase.table("system_config").select("*").eq("id", 1).execute()
     if not config_res.data or not config_res.data[0].get("ig_sessions"):
         print("[-] FATAL: No Instagram cookies found in vault.")
         return
-    
+
     session_ids = [s.strip() for s in config_res.data[0]["ig_sessions"].split(",") if s.strip()]
+    
     total_accounts = len(session_ids)
     print(f"[*] Loaded {total_accounts} active target accounts.")
 
