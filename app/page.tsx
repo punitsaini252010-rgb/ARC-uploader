@@ -1,4 +1,6 @@
 'use client';
+import ARCVideoUploader from '@/components/ARCVideoUploader';
+
 import { useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
@@ -83,6 +85,18 @@ export default function ArcCommandCenter() {
   };
 
   return (
+    export default function Page() {
+  return (
+    <main>
+      {/* Your existing dashboard code is here */}
+      
+      {/* PASTE IT RIGHT HERE */}
+      <ARCVideoUploader />
+      
+    </main>
+  );
+  }
+  
     <div className="min-h-screen bg-black text-green-500 p-6 font-mono selection:bg-green-900">
       <div className="max-w-2xl mx-auto border border-green-800 p-8 shadow-[0_0_15px_rgba(0,255,0,0.2)]">
         
