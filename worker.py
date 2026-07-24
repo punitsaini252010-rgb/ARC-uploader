@@ -52,7 +52,8 @@ def main():
         return
 
     # Fetch IG Cookies
-    config_res = supabase.table("system_config").select("ig_sessions").eq("id", 1).execute()
+response = supabase.table("scheduled_posts").select("*").limit(1).execute()
+
     if not config_res.data or not config_res.data[0].get("ig_sessions"):
         print("[-] FATAL: No Instagram cookies found in vault.")
         return
