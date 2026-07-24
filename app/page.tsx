@@ -1,6 +1,4 @@
 'use client';
-import ARCVideoUploader from '@/components/ARCVideoUploader';
-
 import { useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
@@ -17,7 +15,7 @@ export default function ArcCommandCenter() {
   const [status, setStatus] = useState('System Offline. Awaiting input.');
 
   // Function 1: Schedule the Video
-    const handleDeploy = async () => {
+  const handleDeploy = async () => {
     if (!file || !scheduleTime) {
       setStatus('[-] Error: Base video and schedule time are strictly required.');
       return;
@@ -72,7 +70,6 @@ export default function ArcCommandCenter() {
     
     setStatus('[*] Updating Instagram Session Vault...');
     
-    // Saves the updated cookies to a secure table (we will create this table next)
     const { error } = await supabase
       .from('system_config')
       .upsert({ id: 1, ig_sessions: igCookies });
@@ -85,18 +82,6 @@ export default function ArcCommandCenter() {
   };
 
   return (
-    export default function Page() {
-  return (
-    <main>
-      {/* Your existing dashboard code is here */}
-      
-      {/* PASTE IT RIGHT HERE */}
-      <ARCVideoUploader />
-      
-    </main>
-  );
-  }
-  
     <div className="min-h-screen bg-black text-green-500 p-6 font-mono selection:bg-green-900">
       <div className="max-w-2xl mx-auto border border-green-800 p-8 shadow-[0_0_15px_rgba(0,255,0,0.2)]">
         
@@ -177,4 +162,3 @@ export default function ArcCommandCenter() {
     </div>
   );
 }
-
